@@ -1,0 +1,1 @@
+[2014-10-28 02-01-47] Nette\Latte\CompileException: Unexpected {/if}, expecting </p> for macro-attribute n:if in ...\Homepage\default.latte:33 in E:\Work\htdocs\fri_zadanie\vendor\nette\nette\Nette\Latte\Compiler.php:417  @  http://localhost/fri_zadanie/?do=searchForm-submit  @@  exception-2014-10-28-02-01-46-2fff9ada82573551267955e600c833d9.html

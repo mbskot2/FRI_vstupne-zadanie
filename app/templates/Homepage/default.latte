@@ -1,0 +1,36 @@
+{block scripts}
+{include #parent}
+<script type="text/javascript">
+	$(function() {
+		$('input[name="query"]').get(0).focus();
+	});
+</script>
+{/block}
+
+{block content}
+
+<h2 n:inner-block="title">Vyhľadávanie používateľov</h2>
+{form searchForm}
+	{input query} {input send}
+{/form}
+<div n:snippet="users" class="user-list">
+	{if !empty($control->query)}
+	<ul n:if="!empty($users)">
+		<li n:foreach="$users as $user">
+			<div class="user-detail">
+				<h3><a href="mailto:{$user->email}">{$user->name} {$user->surname}</a> ({$user->age} rokov)</h3>
+				<p class="last-log">{if empty($user->lastLog)}Zatiaľ neprihlásený{else}Posledné prihlásenie: {$user->lastLog|date:'j.n.Y H:i:s'}{/if}</p>
+				{var $groups = $control->getUserGroups($user->id)}
+				<div n:if="!empty($groups)" class="user-groups">
+					<b>Člen skupiny:</b>
+					{foreach $groups as $group}
+						<a n:tag-if="$control->user->isLoggedIn()" n:href=":Group:default, $group->id">{$group->name}</a>{sep}, {/sep}
+					{/foreach}
+				</div>
+			</div>
+		</li>
+	</ul>
+	<p n:if="empty($users)"><i>Hmm, vyzerá to tak, že tu nič nie je :/. Skúste niečo iné :).</i></p>
+	{/if}
+</div>
+{/block}

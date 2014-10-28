@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<!-- jQuery -->
+		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/smoothness/jquery-ui.css" media="all" type="text/css" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+		<!-- Grido -->
+		<link rel="stylesheet" media="print" href="{$basePath}/css/grido.css">
+
+		<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
+		<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
+		<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+		{block head}{/block}
+
+		<title>{ifset #title}{include title|striptags} | {/ifset}Portál FRI</title>
+	</head>
+
+	<body>
+		<header id="banner">
+			<h1>FRI portál - Vstupné zadanie</h1>
+		</header>
+		<nav>
+			<ul class="ui-helper-clearfix">
+				<li><a n:href=":Homepage:">Vyhľadávanie</a></li>
+				<li><a n:href=":User:list">Používatelia</a></li>
+				<li><a n:href=":Group:list">Skupiny</a></li>
+			</ul>
+		</nav>
+		<div id="content">
+			<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+			{include content}
+		</div>
+		<footer class="ui-helper-clearfix">
+			<div class="left">
+				PHP {=PHP_VERSION} | {ifset $_SERVER['SERVER_SOFTWARE']}Server {$_SERVER['SERVER_SOFTWARE']}{/ifset} | Nette Framework {=Nette\Framework::VERSION}
+			</div>
+			<div class="right">
+				<a n:if="!$presenter->user->isLoggedIn()" n:href=":Sign:in">Prihlásiť</a>
+				<a n:if="$presenter->user->isLoggedIn()" n:href=":Sign:out">Odhlásiť</a>
+			</div>
+		</footer>
+		{block scripts}
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script src="{$basePath}/js/netteForms.js"></script>
+		<script src="{$basePath}/js/main.js"></script>
+		<script src="{$basePath}/js/grido.js"></script>
+		<script src="{$basePath}/js/nette.ajax.js"></script>
+		<script src="{$basePath}/js/spinner.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$.nette.init();
+
+				$('a[data-confirm]').click(function(e) {
+					if (!confirm($(this).data('confirm'))) {
+						e.stopImmediatePropagation();
+						return false;
+					}
+				});
+				$('a[data-grido-confirm]').click(function(e) {
+					if (!confirm($(this).data('grido-confirm'))) {
+						e.stopImmediatePropagation();
+						return false;
+					}
+				});
+			});
+		</script>
+		{/block}
+	</body>
+</html>

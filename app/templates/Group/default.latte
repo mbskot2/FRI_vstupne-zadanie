@@ -1,0 +1,18 @@
+{block content}
+<div class="group">
+	<h2 n:inner-block="title">Skupina "{$group->name}"</h2>
+	<p class="content">
+		{!$group->description}
+	</p>
+	<h3>Členovia skupiny</h3>
+	<p>
+		{foreach $users as $user}<a href="mailto:{$user->email}">{$user->name} {$user->surname}</a>{sep}, {/sep}{/foreach}
+	</p>
+	<br>
+</div>
+<ul class="tools ui-helper-clearfix">
+	<li><a n:href="edit, $group->id">Editovať</a></li>
+	<li><a n:href="delete!, $group->id" data-confirm="Naozaj chcete odstrániť túto skupinu?">Odstrániť</a></li>
+	<li><a n:href="list">Späť na zoznam</a></li>
+</ul>
+{/block}
